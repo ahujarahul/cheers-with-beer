@@ -35,7 +35,7 @@ dependencies {
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+//    implementation "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
     // lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
@@ -56,6 +56,9 @@ dependencies {
 
     // Glide
     implementation "com.github.bumptech.glide:glide:$glide"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     kapt "com.github.bumptech.glide:compiler:$glide"
 
     // Ui
@@ -74,4 +77,10 @@ dependencies {
     testImplementation "org.mockito:mockito-inline:$mockito_inline"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test"
     testImplementation "io.kotlintest:kotlintest-runner-junit5:$junit5"
+
+//    implementation "androidx.annotation:annotation:1.1.0"
+//    // To use the Java-compatible @Experimental API annotation
+//    implementation "androidx.annotation:annotation-experimental:1.0.0"
+//
+//    implementation "androidx.legacy:legacy-support-v4:1.0.0"
 }

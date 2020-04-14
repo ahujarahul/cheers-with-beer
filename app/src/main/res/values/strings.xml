@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Cheers with Beer</string>
+    <string name="beers_fragment">beersFragment</string>
+    <string name="all_beers">All beers to be displayed here</string>
 </resources>

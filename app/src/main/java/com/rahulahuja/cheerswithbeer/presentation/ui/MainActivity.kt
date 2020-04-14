@@ -1,7 +1,8 @@
-package com.rahulahuja.cheerswithbeer
+package com.rahulahuja.cheerswithbeer.presentation.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.rahulahuja.cheerswithbeer.R
 
 class MainActivity : AppCompatActivity() {
 
