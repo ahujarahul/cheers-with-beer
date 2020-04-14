@@ -1,0 +1,77 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+
+
+    defaultConfig {
+        applicationId "com.rahulahuja.cheerswithbeer"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Android
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+    // lifecycle
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle"
+
+    // coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines"
+
+    // KOIN
+    implementation "org.koin:koin-androidx-scope:$koin"
+    implementation "org.koin:koin-androidx-viewmodel:$koin"
+
+    // Network
+    implementation "com.squareup.retrofit2:converter-gson:$gson"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$retrofit_coroutines"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glide"
+    kapt "com.github.bumptech.glide:compiler:$glide"
+
+    // Ui
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout"
+    implementation "androidx.cardview:cardview:$card_view"
+    implementation "androidx.recyclerview:recyclerview:$recycler_view"
+
+    // Testing
+    testImplementation "junit:junit:$junit"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation "androidx.test:runner:$test_runner"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso"
+    testImplementation "androidx.arch.core:core-testing:$core_testing"
+    testImplementation "com.google.truth:truth:$google_truth"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito"
+    testImplementation "org.mockito:mockito-inline:$mockito_inline"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test"
+    testImplementation "io.kotlintest:kotlintest-runner-junit5:$junit5"
+}
