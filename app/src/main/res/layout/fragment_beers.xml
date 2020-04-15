@@ -7,21 +7,36 @@
     tools:context=".presentation.ui.beers.BeersFragment"
     android:layout_margin="@dimen/margin_16_dp">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/all_beers" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_beers"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layoutAnimation="@anim/layout_animation_fall_down"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_beer_list" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_favourites"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="@dimen/margin_56_dp"
+        android:layout_height="@dimen/margin_56_dp"
         style="@style/Widget.MaterialComponents.FloatingActionButton"
         android:src="@drawable/ic_star_white_24dp"
         android:backgroundTint="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="@dimen/margin_16_dp" />
+
+    <include
+        android:id="@+id/pb_loadingView"
+        layout="@layout/loading_progressbar"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

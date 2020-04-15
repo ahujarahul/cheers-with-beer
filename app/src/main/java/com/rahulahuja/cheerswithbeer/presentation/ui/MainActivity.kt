@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
         replaceFragment(BeersFragment.newInstance(), true)
     }
 

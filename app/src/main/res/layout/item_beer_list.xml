@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/background_rounded_rectangle_blue">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tv_item_list_data_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_1_dp"
+        android:background="@drawable/background_rounded_rectangle_white"
+        android:padding="@dimen/margin_8_dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_item_list_beer_abv"
+            android:layout_width="@dimen/margin_48_dp"
+            android:layout_height="@dimen/margin_48_dp"
+            android:background="@drawable/shape_circle_item_beer_list"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/text_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_item_beer_list_image"
+            tools:text="4.5" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_item_list_beer_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tv_item_beer_list_tagline"
+            app:layout_constraintEnd_toStartOf="@id/iv_item_beer_list_image"
+            app:layout_constraintStart_toEndOf="@id/tv_item_list_beer_abv"
+            app:layout_constraintTop_toTopOf="@id/tv_item_list_beer_abv"
+            tools:text="Kingfisher" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_item_beer_list_image"
+            android:layout_width="48dp"
+            android:layout_height="100dp"
+            android:transitionName="@string/activity_detail_food_pairing_transition_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_broken_image_black_24dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_item_beer_list_tagline"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_item_list_beer_abv"
+            app:layout_constraintEnd_toStartOf="@id/iv_item_beer_list_image"
+            app:layout_constraintStart_toEndOf="@id/tv_item_list_beer_abv"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_list_beer_name"
+            tools:text="Strong"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_item_beer_list_favorite"
+        android:layout_width="@dimen/margin_24_dp"
+        android:layout_height="@dimen/margin_24_dp"
+        android:layout_marginTop="@dimen/margin_5_dp"
+        android:layout_marginBottom="@dimen/margin_5_dp"
+        android:layout_marginStart="@dimen/margin_5_dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_item_list_data_container"
+        tools:src="@drawable/ic_star_white_24dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
