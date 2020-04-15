@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Cheers with Beer</string>
-    <string name="beers_fragment">beersFragment</string>
-    <string name="all_beers">All beers to be displayed here</string>
+    <string name="nothing_to_show">Nothing to show here</string>
+    <string name="beers">Beers</string>
+    <string name="favourite_beers">Favourite Beers</string>
+    <string name="beer_details">Beer Details</string>
+
     <string name="activity_detail_food_pairing_transition_name">DetailBeer</string>
+    <string name="activity_detail_food_pairing_title">Food pairing</string>
 </resources>

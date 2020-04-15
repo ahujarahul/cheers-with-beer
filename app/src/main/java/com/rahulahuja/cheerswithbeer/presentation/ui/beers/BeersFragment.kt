@@ -37,7 +37,7 @@ class BeersFragment : Fragment(), View.OnClickListener {
 
     override fun onStart() {
         super.onStart()
-
+        (activity as MainActivity).setTitle(resources.getString(R.string.beers))
         fab_favourites.setOnClickListener(this)
     }
 

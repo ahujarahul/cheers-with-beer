@@ -24,4 +24,8 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack(newFragment::class.java.simpleName)
             .replace(R.id.fcv_fragment_container, newFragment).commit()
     }
+
+    fun setTitle(titleText: String) {
+        title = titleText
+    }
 }

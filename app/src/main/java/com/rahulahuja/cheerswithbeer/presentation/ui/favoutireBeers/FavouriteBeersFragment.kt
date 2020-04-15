@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 
 import com.rahulahuja.cheerswithbeer.R
+import com.rahulahuja.cheerswithbeer.presentation.ui.MainActivity
 import com.rahulahuja.cheerswithbeer.presentation.viewModel.favoutireBeers.FavouriteBeersViewModel
 
 class FavouriteBeersFragment : Fragment() {
@@ -23,6 +24,11 @@ class FavouriteBeersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_favourite_beers, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        (activity as MainActivity).setTitle(resources.getString(R.string.favourite_beers))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
