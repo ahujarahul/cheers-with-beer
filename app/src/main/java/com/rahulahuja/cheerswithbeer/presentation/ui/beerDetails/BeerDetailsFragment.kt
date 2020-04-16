@@ -8,13 +8,19 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 
 import com.rahulahuja.cheerswithbeer.R
+import com.rahulahuja.cheerswithbeer.presentation.constants.BUNDLE_BEER_DETAIL
+import com.rahulahuja.cheerswithbeer.presentation.models.BeerDetailUI
 import com.rahulahuja.cheerswithbeer.presentation.ui.MainActivity
 import com.rahulahuja.cheerswithbeer.presentation.viewModel.beerDetails.BeerDetailsViewModel
 
 class BeerDetailsFragment : Fragment() {
 
     companion object {
-        fun newInstance() = BeerDetailsFragment()
+        fun newInstance(beerDetailUi: BeerDetailUI) = BeerDetailsFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(BUNDLE_BEER_DETAIL, beerDetailUi)
+            }
+        }
     }
 
     private lateinit var viewModel: BeerDetailsViewModel

@@ -7,4 +7,5 @@
 
     <string name="activity_detail_food_pairing_transition_name">DetailBeer</string>
     <string name="activity_detail_food_pairing_title">Food pairing</string>
+    <string name="abv">%1$s º</string>
 </resources>

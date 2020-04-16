@@ -10,6 +10,6 @@
     <color name="divider">#BDBDBD</color>
 
     <color name="beerGradYellow">#FFC107</color>
-<!--    <color name="beerGradGreen"></color>-->
-<!--    <color name="beerGradRed"></color>-->
+    <color name="beerGradGreen">#32A94F</color>
+    <color name="beerGradRed">#EB4134</color>
 </resources>
