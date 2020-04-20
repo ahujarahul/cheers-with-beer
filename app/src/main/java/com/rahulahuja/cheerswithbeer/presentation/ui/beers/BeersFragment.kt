@@ -25,25 +25,14 @@ import java.util.ArrayList
 
 class BeersFragment : Fragment(), View.OnClickListener, BeersFragmentCallback {
 
-    private val beersAdapter: BeersAdapter? = BeersAdapter(this)
-    private lateinit var viewModel: BeersViewModel
+    private val beersAdapter = BeersAdapter(this)
+    private var viewModel = BeersViewModel()
 
-    // to be passed to beer adapter
-//    private var favoriteBeerListener: (BeerAdapterModel) -> Unit = { beerAdapterModel ->
-//        viewModel.handleFavoriteButton(BeerAdapterModelToBeerUiMapper.map(beerAdapterModel))
-//    }
-//    private val beerDetailListener: (BeerAdapterModel) -> Unit = { beer ->
-//        showBeerDetails(getBeerDetailsFragment(
-//            BeerDetailUI(
-//                image = beer.image,
-//                foodPairing = beer.foodPairing as ArrayList<String>)))
-//    }
-
-    fun setBeerDetailListener(beerAdapterModel: BeerAdapterModel) {
+    private fun setBeerDetailListener(beerAdapterModel: BeerAdapterModel) {
         viewModel.handleFavoriteButton(BeerAdapterModelToBeerUiMapper.map(beerAdapterModel))
     }
 
-    fun setFavoriteBeerListener(beerAdapterModel: BeerAdapterModel) {
+    private fun setFavoriteBeerListener(beerAdapterModel: BeerAdapterModel) {
         showBeerDetails(getBeerDetailsFragment(
             BeerDetailUI(
                 image = beerAdapterModel.image,

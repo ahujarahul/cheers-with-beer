@@ -2,7 +2,9 @@ package com.rahulahuja.cheerswithbeer.presentation.mapper
 
 import com.rahulahuja.cheerswithbeer.R
 import com.rahulahuja.cheerswithbeer.presentation.enums.AbvColorType
+import com.rahulahuja.cheerswithbeer.presentation.enums.AbvRangeType
 import com.rahulahuja.cheerswithbeer.presentation.models.BeerAdapterModel
+import com.rahulahuja.cheerswithbeer.presentation.models.BeerEntity
 import com.rahulahuja.cheerswithbeer.presentation.models.BeerUI
 
 /**
@@ -40,6 +42,33 @@ object BeerUIToAdapterModelMapper : BaseMapper<List<BeerUI>, List<BeerAdapterMod
                 foodPairing = beerUi.foodPairing
             )
         } ?: listOf()
+    }
+}
+
+object BeersEntityToUIMapper : BaseMapper<List<BeerEntity>, List<BeerUI>> {
+    override fun map(type: List<BeerEntity>?): List<BeerUI> {
+        return type?.map {
+            BeerUI(
+                id = it.id,
+                name = it.name,
+                tagline = it.tagline,
+                image = it.image,
+                abv = it.abv,
+                abvColorType = mapAbvType(it.getAbvRange(it.abv)),
+                isFavorite = it.isFavorite,
+                foodPairing = it.foodPairing.map { foodPairing ->
+                    "- $foodPairing"
+                }
+            )
+        } ?: listOf()
+    }
+}
+
+private fun mapAbvType(abvRangeType: AbvRangeType): AbvColorType {
+    return when (abvRangeType) {
+        AbvRangeType.LOW -> AbvColorType.GREEN
+        AbvRangeType.NORMAL -> AbvColorType.ORANGE
+        AbvRangeType.HIGH -> AbvColorType.RED
     }
 }
 
