@@ -2,7 +2,7 @@ package com.rahulahuja.cheerswithbeer.presentation.mapper
 
 import com.rahulahuja.cheerswithbeer.R
 import com.rahulahuja.cheerswithbeer.presentation.enums.AbvColorType
-import com.rahulahuja.cheerswithbeer.presentation.enums.AbvRangeType
+import com.rahulahuja.cheerswithbeer.business.enums.AbvRangeType
 import com.rahulahuja.cheerswithbeer.presentation.models.BeerAdapterModel
 import com.rahulahuja.cheerswithbeer.presentation.models.BeerEntity
 import com.rahulahuja.cheerswithbeer.presentation.models.BeerUI
@@ -46,8 +46,8 @@ object BeerUIToAdapterModelMapper : BaseMapper<List<BeerUI>, List<BeerAdapterMod
 }
 
 object BeersEntityToUIMapper : BaseMapper<List<BeerEntity>, List<BeerUI>> {
-    override fun map(type: List<BeerEntity>?): List<BeerUI> {
-        return type?.map {
+    override fun map(data: List<BeerEntity>?): List<BeerUI> {
+        return data?.map {
             BeerUI(
                 id = it.id,
                 name = it.name,
@@ -61,6 +61,22 @@ object BeersEntityToUIMapper : BaseMapper<List<BeerEntity>, List<BeerUI>> {
                 }
             )
         } ?: listOf()
+    }
+}
+
+object BeerUIToEntityMapper : BaseMapper<BeerUI, BeerEntity> {
+    override fun map(data: BeerUI?): BeerEntity {
+        return BeerEntity(
+            id = data!!.id,
+            name = data.name,
+            tagline = data.tagline,
+            image = data.image,
+            abv = data.abv,
+            isFavorite = data.isFavorite,
+            foodPairing = data.foodPairing.map {
+                it.removePrefix("-")
+            }
+        )
     }
 }
 

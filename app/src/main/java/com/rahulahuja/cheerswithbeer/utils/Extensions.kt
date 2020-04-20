@@ -8,6 +8,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.rahulahuja.cheerswithbeer.R
 
 /**
@@ -37,3 +38,8 @@ fun AppCompatImageView.loadImage(imageUri: String) {
 fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(this.context).inflate(layoutId, this, attachToRoot)
 }
+
+fun showError(view: View, errorMessage: String) {
+    Snackbar.make(view, errorMessage, Snackbar.LENGTH_LONG).show()
+}
+

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 
 import com.rahulahuja.cheerswithbeer.R
 import com.rahulahuja.cheerswithbeer.presentation.mapper.BeerAdapterModelToBeerUiMapper
@@ -20,23 +21,34 @@ import com.rahulahuja.cheerswithbeer.presentation.ui.beerDetails.BeerDetailsFrag
 import com.rahulahuja.cheerswithbeer.presentation.ui.beers.adapter.BeersAdapter
 import com.rahulahuja.cheerswithbeer.presentation.ui.favoutireBeers.FavouriteBeersFragment
 import com.rahulahuja.cheerswithbeer.presentation.viewModel.beers.BeersViewModel
+import com.rahulahuja.cheerswithbeer.utils.showError
 import kotlinx.android.synthetic.main.fragment_beers.*
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import java.util.ArrayList
 
-class BeersFragment : Fragment(), View.OnClickListener, BeersFragmentCallback {
+class BeersFragment : Fragment(), View.OnClickListener {
 
-    private val beersAdapter = BeersAdapter(this)
-    private var viewModel = BeersViewModel()
+    private val viewModel: BeersViewModel by viewModel()
 
-    private fun setBeerDetailListener(beerAdapterModel: BeerAdapterModel) {
+    private val beersAdapter: BeersAdapter by inject { parametersOf(
+        favoriteBeerListener,
+        beerDetailListener) }
+
+    private val favoriteBeerListener: (BeerAdapterModel) -> Unit = { beerAdapterModel ->
         viewModel.handleFavoriteButton(BeerAdapterModelToBeerUiMapper.map(beerAdapterModel))
     }
 
-    private fun setFavoriteBeerListener(beerAdapterModel: BeerAdapterModel) {
+    private val beerDetailListener: (BeerAdapterModel) -> Unit = { beerAdapterModel ->
         showBeerDetails(getBeerDetailsFragment(
             BeerDetailUI(
                 image = beerAdapterModel.image,
                 foodPairing = beerAdapterModel.foodPairing as ArrayList<String>)))
+    }
+
+    private val actionErrorListener: (String) -> Unit = { errorMessage ->
+        Snackbar.make(beers_parent, errorMessage, Snackbar.LENGTH_LONG).show()
     }
 
     companion object {
@@ -52,8 +64,6 @@ class BeersFragment : Fragment(), View.OnClickListener, BeersFragmentCallback {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProviders.of(this).get(BeersViewModel::class.java)
-        viewModel = ViewModelProvider(this).get(BeersViewModel::class.java)
     }
 
     override fun onStart() {
@@ -74,6 +84,8 @@ class BeersFragment : Fragment(), View.OnClickListener, BeersFragmentCallback {
 
     private fun observeViewModel() {
         viewModel.beersLiveData.observe(viewLifecycleOwner, Observer(::onBeersReceived))
+        viewModel.isBeerSaveSuccess.observe(viewLifecycleOwner, Observer(::onIsBeerSaveSuccess))
+        viewModel.isBeerRemovalSuccess.observe(viewLifecycleOwner, Observer(::onIsBeerRemovalSuccess))
 //        viewModel.isErrorLiveData.observe(this, Observer { onErrorReceived() })
 //        viewModel.areEmptyBeersLiveData.observe(this, Observer { onEmptyBeersReceived() })
 //        viewModel.isLoadingLiveData.observe(this, Observer(::onLoadingStateReceived))
@@ -99,6 +111,18 @@ class BeersFragment : Fragment(), View.OnClickListener, BeersFragmentCallback {
         return BeerDetailsFragment.newInstance(beerDetailUi)
     }
 
+    private fun onIsBeerSaveSuccess(isBeerSaveSuccess: Boolean) {
+        if (!isBeerSaveSuccess) {
+            showError(beers_parent, resources.getString(R.string.generic_error))
+        }
+    }
+
+    private fun onIsBeerRemovalSuccess(isBeerRemovalSuccess: Boolean) {
+        if (!isBeerRemovalSuccess) {
+            showError(beers_parent, resources.getString(R.string.generic_error))
+        }
+    }
+
     private fun onBeersReceived(beers: List<BeerUI>) {
         populateBeers(beers)
     }
@@ -118,13 +142,5 @@ class BeersFragment : Fragment(), View.OnClickListener, BeersFragmentCallback {
             }
             setHasFixedSize(true)
         }
-    }
-
-    override fun onSetBeerDetailListener(beerAdapterModel: BeerAdapterModel) {
-        setBeerDetailListener(beerAdapterModel)
-    }
-
-    override fun onSetFavoriteBeerListener(beerAdapterModel: BeerAdapterModel) {
-        setFavoriteBeerListener(beerAdapterModel)
     }
 }

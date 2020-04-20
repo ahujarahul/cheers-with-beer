@@ -1,6 +1,6 @@
 package com.rahulahuja.cheerswithbeer.presentation.models
 
-import com.rahulahuja.cheerswithbeer.presentation.enums.AbvRangeType
+import com.rahulahuja.cheerswithbeer.business.enums.AbvRangeType
 
 /**
  * Created by rahulahuja on 17/04/20.

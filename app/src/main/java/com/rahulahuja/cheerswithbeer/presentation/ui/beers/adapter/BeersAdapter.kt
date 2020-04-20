@@ -1,18 +1,21 @@
 package com.rahulahuja.cheerswithbeer.presentation.ui.beers.adapter
 
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.rahulahuja.cheerswithbeer.R
 import com.rahulahuja.cheerswithbeer.presentation.models.BeerAdapterModel
-import com.rahulahuja.cheerswithbeer.presentation.ui.beers.BeersFragmentCallback
 import com.rahulahuja.cheerswithbeer.utils.inflate
 import kotlinx.android.synthetic.main.item_beer_list.view.*
 
 /**
  * Created by rahulahuja on 16/04/20.
  */
-class BeersAdapter(private val beersFragmentCallback: BeersFragmentCallback):
+class BeersAdapter(
+    private val favoriteBeerListener: (BeerAdapterModel) -> Unit,
+    private val beerDetailListener: (BeerAdapterModel) -> Unit
+):
     RecyclerView.Adapter<BeersViewHolder>() {
 
     private lateinit var beers: List<BeerAdapterModel>
@@ -40,8 +43,7 @@ class BeersAdapter(private val beersFragmentCallback: BeersFragmentCallback):
             val position = viewHolder.adapterPosition
 
             if (position != RecyclerView.NO_POSITION) {
-//                beerDetailListener.invoke(beers[position])
-                beersFragmentCallback.onSetBeerDetailListener(beers[position])
+                beerDetailListener.invoke(beers[position])
             }
         }
     }
@@ -53,8 +55,7 @@ class BeersAdapter(private val beersFragmentCallback: BeersFragmentCallback):
                 val beer = beers[position].apply {
                     isFavorite = !isFavorite
                 }
-//                favoriteBeerListener.invoke(beer)
-                beersFragmentCallback.onSetFavoriteBeerListener(beer)
+                favoriteBeerListener.invoke(beer)
             }
         }
     }

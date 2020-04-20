@@ -1,16 +1,13 @@
 package com.rahulahuja.cheerswithbeer.business.domain.usecase
 
 import com.rahulahuja.cheerswithbeer.business.`interface`.BeersRepository
-import com.rahulahuja.cheerswithbeer.data.NetworkResult
-import com.rahulahuja.cheerswithbeer.presentation.models.BeersEntity
 
 /**
- * Created by rahulahuja on 17/04/20.
+ * Created by rahulahuja on 20/04/20.
  */
-class GetBeersUseCase(
+class RemoveBeerUseCase(
     private val beersRepository: BeersRepository?) {
-
-    fun execute(): NetworkResult<BeersEntity> {
+    fun execute(id: Int): Boolean {
         TODO("Not yet implemented")
     }
 }

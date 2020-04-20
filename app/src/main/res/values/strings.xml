@@ -4,6 +4,7 @@
     <string name="beers">Beers</string>
     <string name="favourite_beers">Favourite Beers</string>
     <string name="beer_details">Beer Details</string>
+    <string name="generic_error">Something went wrong! Please try again.</string>
 
     <string name="activity_detail_food_pairing_transition_name">DetailBeer</string>
     <string name="activity_detail_food_pairing_title">Food pairing</string>

@@ -4,44 +4,55 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rahulahuja.cheerswithbeer.business.domain.usecase.GetBeersUseCase
-import com.rahulahuja.cheerswithbeer.presentation.enums.ResultType
+import com.rahulahuja.cheerswithbeer.business.domain.usecase.RemoveBeerUseCase
+import com.rahulahuja.cheerswithbeer.business.domain.usecase.SaveBeerUseCase
+import com.rahulahuja.cheerswithbeer.data.enums.ResultType
 import com.rahulahuja.cheerswithbeer.presentation.models.BeerUI
 import com.rahulahuja.cheerswithbeer.presentation.models.BeersEntity
 import kotlinx.coroutines.launch
-import com.rahulahuja.cheerswithbeer.data.Result
+import com.rahulahuja.cheerswithbeer.data.NetworkResult
+import com.rahulahuja.cheerswithbeer.presentation.mapper.BeerUIToEntityMapper
 import com.rahulahuja.cheerswithbeer.presentation.mapper.BeersEntityToUIMapper
 import kotlinx.coroutines.delay
 
-class BeersViewModel : ViewModel() {
+class BeersViewModel(
+    private var getMealsByBeersUseCase: GetBeersUseCase,
+    private val saveBeerUseCase: SaveBeerUseCase,
+    private val removeBeerUseCase: RemoveBeerUseCase
+) : ViewModel() {
 
     private val beersMutableLiveData = MutableLiveData<List<BeerUI>>()
     val beersLiveData get() = beersMutableLiveData
-    private var getMealsByBeersUseCase: GetBeersUseCase? = null
 
-    private val areEmptyBeersMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    private val areEmptyBeersMutableLiveData = MutableLiveData<Boolean>()
     val areEmptyBeersLiveData get() = areEmptyBeersMutableLiveData
 
-    private val isErrorMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    private val isErrorMutableLiveData = MutableLiveData<Boolean>()
     val isErrorLiveData get() = isErrorMutableLiveData
 
-    private val isLoadingMutableLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    private val isLoadingMutableLiveData = MutableLiveData<Boolean>()
     val isLoadingLiveData get() = isLoadingMutableLiveData
 
+    private val isBeerSaveSuccessMutableLiveData = MutableLiveData<Boolean>()
+    val isBeerSaveSuccess get() = isBeerSaveSuccessMutableLiveData
+
+    private val isBeerRemovalSuccessMutableLiveData = MutableLiveData<Boolean>()
+    val isBeerRemovalSuccess get() = isBeerRemovalSuccessMutableLiveData
+
     init {
-        getMealsByBeersUseCase = GetBeersUseCase()
         handleBeersLoad()
     }
 
     fun handleBeersLoad() {
         isLoadingLiveData(true)
         viewModelScope.launch {
-            val beersEntityResult: Result<BeersEntity> = getMealsByBeersUseCase.execute()
+            val beersEntityResult: NetworkResult<BeersEntity> = getMealsByBeersUseCase.execute()
 
             updateAppropriateLiveData(beersEntityResult)
         }
     }
 
-    private fun updateAppropriateLiveData(result: Result<BeersEntity>) {
+    private fun updateAppropriateLiveData(result: NetworkResult<BeersEntity>) {
         if (isResultSuccess(result.resultType)) {
             onResultSuccess(result.data)
         } else {
@@ -79,6 +90,20 @@ class BeersViewModel : ViewModel() {
     }
 
     fun handleFavoriteButton(beerUI: BeerUI?) {
-        TODO("Not yet implemented")
+        viewModelScope.launch {
+            BeerUIToEntityMapper.map(beerUI).let { beerEntity ->
+                if (beerEntity.isFavorite) {
+                    saveBeerUseCase.execute(beerEntity).let { isBeerSaved ->
+                        if (!isBeerSaved) {
+                            isBeerSaveSuccessMutableLiveData.value = false
+                        }
+                    }
+                } else removeBeerUseCase.execute(beerEntity.id).let { isBeerRemoved ->
+                    if (!isBeerRemoved) {
+                        isBeerRemovalSuccessMutableLiveData.value = false
+                    }
+                }
+            }
+        }
     }
 }
