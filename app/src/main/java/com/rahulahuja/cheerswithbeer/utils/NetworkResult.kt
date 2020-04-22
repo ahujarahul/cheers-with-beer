@@ -1,6 +1,6 @@
-package com.rahulahuja.cheerswithbeer.data
+package com.rahulahuja.cheerswithbeer.utils
 
-import com.rahulahuja.cheerswithbeer.data.enums.ResultType
+import com.rahulahuja.cheerswithbeer.enums.ResultType
 
 /**
  * Created by rahulahuja on 17/04/20.
@@ -13,11 +13,17 @@ data class NetworkResult<out T>(
 
     companion object {
         fun <T> success(data: T?): NetworkResult<T> {
-            return NetworkResult(ResultType.SUCCESS, data)
+            return NetworkResult(
+                ResultType.SUCCESS,
+                data
+            )
         }
 
         fun <T> error(error: java.lang.Exception? = null): NetworkResult<T> {
-            return NetworkResult(ResultType.ERROR, error = error)
+            return NetworkResult(
+                ResultType.ERROR,
+                error = error
+            )
         }
     }
 }

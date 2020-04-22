@@ -5,8 +5,14 @@
     <string name="favourite_beers">Favourite Beers</string>
     <string name="beer_details">Beer Details</string>
     <string name="generic_error">Something went wrong! Please try again.</string>
+    <string name="beer_save_failed">Could not save beer! Please try again.</string>
+    <string name="beer_remove_failed">Could not remove beer! Please try again.</string>
 
     <string name="activity_detail_food_pairing_transition_name">DetailBeer</string>
     <string name="activity_detail_food_pairing_title">Food pairing</string>
     <string name="abv">%1$s º</string>
+    <string name="network_connection_error_title">Network Error</string>
+    <string name="no_data_fetched">Could not fetch data</string>
+    <string name="cancel">Cancel</string>
+    <string name="try_again">Try again</string>
 </resources>

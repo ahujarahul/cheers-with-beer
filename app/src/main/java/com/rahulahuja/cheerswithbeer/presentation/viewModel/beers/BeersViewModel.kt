@@ -6,11 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.rahulahuja.cheerswithbeer.business.domain.usecase.GetBeersUseCase
 import com.rahulahuja.cheerswithbeer.business.domain.usecase.RemoveBeerUseCase
 import com.rahulahuja.cheerswithbeer.business.domain.usecase.SaveBeerUseCase
-import com.rahulahuja.cheerswithbeer.data.enums.ResultType
+import com.rahulahuja.cheerswithbeer.enums.ResultType
 import com.rahulahuja.cheerswithbeer.presentation.models.BeerUI
 import com.rahulahuja.cheerswithbeer.presentation.models.BeersEntity
 import kotlinx.coroutines.launch
-import com.rahulahuja.cheerswithbeer.data.NetworkResult
+import com.rahulahuja.cheerswithbeer.utils.NetworkResult
 import com.rahulahuja.cheerswithbeer.presentation.mapper.BeerUIToEntityMapper
 import com.rahulahuja.cheerswithbeer.presentation.mapper.BeersEntityToUIMapper
 import kotlinx.coroutines.delay
@@ -48,11 +48,11 @@ class BeersViewModel(
         viewModelScope.launch {
             val beersEntityResult: NetworkResult<BeersEntity> = getMealsByBeersUseCase.execute()
 
-            updateAppropriateLiveData(beersEntityResult)
+            updateLiveData(beersEntityResult)
         }
     }
 
-    private fun updateAppropriateLiveData(result: NetworkResult<BeersEntity>) {
+    private fun updateLiveData(result: NetworkResult<BeersEntity>) {
         if (isResultSuccess(result.resultType)) {
             onResultSuccess(result.data)
         } else {

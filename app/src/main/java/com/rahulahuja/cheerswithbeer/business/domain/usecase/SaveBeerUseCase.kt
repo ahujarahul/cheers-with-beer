@@ -1,6 +1,6 @@
 package com.rahulahuja.cheerswithbeer.business.domain.usecase
 
-import com.rahulahuja.cheerswithbeer.business.`interface`.BeersRepository
+import com.rahulahuja.cheerswithbeer.business.interfaces.BeersRepository
 import com.rahulahuja.cheerswithbeer.presentation.models.BeerEntity
 
 /**

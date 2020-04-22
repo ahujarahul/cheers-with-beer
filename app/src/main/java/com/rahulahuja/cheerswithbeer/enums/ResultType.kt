@@ -1,4 +1,4 @@
-package com.rahulahuja.cheerswithbeer.data.enums
+package com.rahulahuja.cheerswithbeer.enums
 
 /**
  * Created by rahulahuja on 17/04/20.

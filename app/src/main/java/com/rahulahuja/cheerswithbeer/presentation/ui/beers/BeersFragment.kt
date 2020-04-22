@@ -1,10 +1,12 @@
 package com.rahulahuja.cheerswithbeer.presentation.ui.beers
 
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,19 +34,26 @@ class BeersFragment : Fragment(), View.OnClickListener {
 
     private val viewModel: BeersViewModel by viewModel()
 
-    private val beersAdapter: BeersAdapter by inject { parametersOf(
-        favoriteBeerListener,
-        beerDetailListener) }
+    private val beersAdapter: BeersAdapter by inject {
+        parametersOf(
+            favoriteBeerListener,
+            beerDetailListener
+        )
+    }
 
     private val favoriteBeerListener: (BeerAdapterModel) -> Unit = { beerAdapterModel ->
         viewModel.handleFavoriteButton(BeerAdapterModelToBeerUiMapper.map(beerAdapterModel))
     }
 
     private val beerDetailListener: (BeerAdapterModel) -> Unit = { beerAdapterModel ->
-        showBeerDetails(getBeerDetailsFragment(
-            BeerDetailUI(
-                image = beerAdapterModel.image,
-                foodPairing = beerAdapterModel.foodPairing as ArrayList<String>)))
+        showBeerDetails(
+            getBeerDetailsFragment(
+                BeerDetailUI(
+                    image = beerAdapterModel.image,
+                    foodPairing = beerAdapterModel.foodPairing as ArrayList<String>
+                )
+            )
+        )
     }
 
     private val actionErrorListener: (String) -> Unit = { errorMessage ->
@@ -86,9 +95,44 @@ class BeersFragment : Fragment(), View.OnClickListener {
         viewModel.beersLiveData.observe(viewLifecycleOwner, Observer(::onBeersReceived))
         viewModel.isBeerSaveSuccess.observe(viewLifecycleOwner, Observer(::onIsBeerSaveSuccess))
         viewModel.isBeerRemovalSuccess.observe(viewLifecycleOwner, Observer(::onIsBeerRemovalSuccess))
-//        viewModel.isErrorLiveData.observe(this, Observer { onErrorReceived() })
-//        viewModel.areEmptyBeersLiveData.observe(this, Observer { onEmptyBeersReceived() })
-//        viewModel.isLoadingLiveData.observe(this, Observer(::onLoadingStateReceived))
+        viewModel.isErrorLiveData.observe(this, Observer { onErrorReceived() })
+        viewModel.areEmptyBeersLiveData.observe(this, Observer { onEmptyBeersReceived() })
+        viewModel.isLoadingLiveData.observe(this, Observer(::onLoadingStateReceived))
+    }
+
+    private fun onEmptyBeersReceived() {
+        showAlert(
+            R.string.no_data_fetched,
+            R.string.cancel,
+            R.string.try_again)
+    }
+
+    private fun onLoadingStateReceived(isLoading: Boolean) {
+        showLoadingView(isLoading)
+    }
+
+    private fun showLoadingView(isLoading: Boolean) {
+        pb_loadingView.apply {
+            visibility = if (isLoading) View.VISIBLE else View.GONE
+        }
+    }
+
+    private fun onErrorReceived() {
+        showAlert(
+            R.string.network_connection_error_title,
+            R.string.cancel,
+            R.string.try_again)
+    }
+
+    private fun showAlert(resIdTitle: Int, resIdNegativeButton: Int, resIdPositiveButton: Int) {
+        context?.let {
+            AlertDialog.Builder(it)
+                .setTitle(resIdTitle)
+                .setCancelable(false)
+                .setNegativeButton(resIdNegativeButton) { _, _ -> (activity as MainActivity).finish() }
+                .setPositiveButton(resIdPositiveButton) { _, _ -> viewModel.handleBeersLoad() }
+                .show()
+        }
     }
 
     override fun onClick(view: View?) {
@@ -113,13 +157,13 @@ class BeersFragment : Fragment(), View.OnClickListener {
 
     private fun onIsBeerSaveSuccess(isBeerSaveSuccess: Boolean) {
         if (!isBeerSaveSuccess) {
-            showError(beers_parent, resources.getString(R.string.generic_error))
+            showError(beers_parent, resources.getString(R.string.beer_save_failed))
         }
     }
 
     private fun onIsBeerRemovalSuccess(isBeerRemovalSuccess: Boolean) {
         if (!isBeerRemovalSuccess) {
-            showError(beers_parent, resources.getString(R.string.generic_error))
+            showError(beers_parent, resources.getString(R.string.beer_remove_failed))
         }
     }
 

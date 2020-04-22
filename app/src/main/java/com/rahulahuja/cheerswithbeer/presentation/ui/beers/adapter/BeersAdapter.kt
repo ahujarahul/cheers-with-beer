@@ -15,8 +15,7 @@ import kotlinx.android.synthetic.main.item_beer_list.view.*
 class BeersAdapter(
     private val favoriteBeerListener: (BeerAdapterModel) -> Unit,
     private val beerDetailListener: (BeerAdapterModel) -> Unit
-):
-    RecyclerView.Adapter<BeersViewHolder>() {
+): RecyclerView.Adapter<BeersViewHolder>() {
 
     private lateinit var beers: List<BeerAdapterModel>
 

@@ -1,6 +1,6 @@
 package com.rahulahuja.cheerswithbeer.business.domain.usecase
 
-import com.rahulahuja.cheerswithbeer.business.`interface`.BeersRepository
+import com.rahulahuja.cheerswithbeer.business.interfaces.BeersRepository
 
 /**
  * Created by rahulahuja on 20/04/20.

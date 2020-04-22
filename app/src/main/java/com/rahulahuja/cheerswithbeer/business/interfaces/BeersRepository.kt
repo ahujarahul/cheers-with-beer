@@ -1,6 +1,6 @@
-package com.rahulahuja.cheerswithbeer.business.`interface`
+package com.rahulahuja.cheerswithbeer.business.interfaces
 
-import com.rahulahuja.cheerswithbeer.data.NetworkResult
+import com.rahulahuja.cheerswithbeer.utils.NetworkResult
 import com.rahulahuja.cheerswithbeer.presentation.models.BeerEntity
 import com.rahulahuja.cheerswithbeer.presentation.models.BeersEntity
 

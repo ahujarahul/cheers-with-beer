@@ -1,6 +1,9 @@
 package com.rahulahuja.cheerswithbeer
 
 import android.app.Application
+import com.rahulahuja.cheerswithbeer.data.koinModules.beersRepoModule
+import com.rahulahuja.cheerswithbeer.data.koinModules.favoritesLocalDataSourceModule
+import com.rahulahuja.cheerswithbeer.data.koinModules.retrofitModule
 import com.rahulahuja.cheerswithbeer.koinModules.beersModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -22,7 +25,10 @@ class BeersApplication: Application() {
             androidContext(this@BeersApplication)
             modules(
                 listOf(
-                    beersModule
+                    beersModule,
+                    retrofitModule,
+                    beersRepoModule,
+                    favoritesLocalDataSourceModule
                 )
             )
         }

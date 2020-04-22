@@ -6,12 +6,14 @@ import com.rahulahuja.cheerswithbeer.business.enums.AbvRangeType
 import com.rahulahuja.cheerswithbeer.presentation.models.BeerAdapterModel
 import com.rahulahuja.cheerswithbeer.presentation.models.BeerEntity
 import com.rahulahuja.cheerswithbeer.presentation.models.BeerUI
+import com.rahulahuja.cheerswithbeer.utils.BaseMapper
 
 /**
  * Created by rahulahuja on 16/04/20.
  */
 
-object BeerAdapterModelToBeerUiMapper : BaseMapper<BeerAdapterModel, BeerUI> {
+object BeerAdapterModelToBeerUiMapper :
+    BaseMapper<BeerAdapterModel, BeerUI> {
     override fun map(data: BeerAdapterModel?): BeerUI? {
         data?.let { beerAdapterModel ->
             return BeerUI(
@@ -28,7 +30,8 @@ object BeerAdapterModelToBeerUiMapper : BaseMapper<BeerAdapterModel, BeerUI> {
     }
 }
 
-object BeerUIToAdapterModelMapper : BaseMapper<List<BeerUI>, List<BeerAdapterModel>> {
+object BeerUIToAdapterModelMapper :
+    BaseMapper<List<BeerUI>, List<BeerAdapterModel>> {
     override fun map(data: List<BeerUI>?): List<BeerAdapterModel> {
         return data?.map { beerUi ->
             BeerAdapterModel(
@@ -45,7 +48,8 @@ object BeerUIToAdapterModelMapper : BaseMapper<List<BeerUI>, List<BeerAdapterMod
     }
 }
 
-object BeersEntityToUIMapper : BaseMapper<List<BeerEntity>, List<BeerUI>> {
+object BeersEntityToUIMapper :
+    BaseMapper<List<BeerEntity>, List<BeerUI>> {
     override fun map(data: List<BeerEntity>?): List<BeerUI> {
         return data?.map {
             BeerUI(
@@ -64,7 +68,8 @@ object BeersEntityToUIMapper : BaseMapper<List<BeerEntity>, List<BeerUI>> {
     }
 }
 
-object BeerUIToEntityMapper : BaseMapper<BeerUI, BeerEntity> {
+object BeerUIToEntityMapper :
+    BaseMapper<BeerUI, BeerEntity> {
     override fun map(data: BeerUI?): BeerEntity {
         return BeerEntity(
             id = data!!.id,
